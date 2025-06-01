@@ -16,6 +16,7 @@
         <th style="padding: 14px; border: 1px solid #ddd; text-align: left;">Instructor</th>
         <th style="padding: 14px; border: 1px solid #ddd; text-align: left;">Credits</th>
         <th style="padding: 14px; border: 1px solid #ddd; text-align: left;">Description</th>
+        <th style="padding: 14px; border: 1px solid #ddd; text-align: center;">Actions</th>  <!-- Added Actions header -->
       </tr>
     </thead>
     <tbody>
@@ -27,10 +28,15 @@
         <td style="padding: 12px; border: 1px solid #ddd;">{{ course.Course_Instructor }}</td>
         <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">{{ course.Course_Credits }}</td>
         <td style="padding: 12px; border: 1px solid #ddd;">{{ course.Course_Description }}</td>
+        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">
+          <a href="" style="padding: 6px 10px; background-color: #1abc9c; color: white; text-decoration: none; border-radius: 4px; margin-right: 6px;">View</a>
+          <a href="{% url 'editCourse' course.id %}" style="padding: 6px 10px; background-color: #3498db; color: white; text-decoration: none; border-radius: 4px; margin-right: 6px;">Edit</a>
+          <a href="{% url 'deleteCourse' course.id %}" style="padding: 6px 10px; background-color: #e74c3c; color: white; text-decoration: none; border-radius: 4px;">Delete</a>
+        </td>
       </tr>
       {% empty %}
       <tr>
-        <td colspan="6" style="padding: 20px; text-align: center; color: #999;">
+        <td colspan="7" style="padding: 20px; text-align: center; color: #999;">
           No courses found.
         </td>
       </tr>
