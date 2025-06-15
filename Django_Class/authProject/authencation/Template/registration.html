@@ -151,7 +151,7 @@
 <body>
   <div class="form-container" role="main" aria-label="User Registration Form">
     <h2>User Registration</h2>
-    <form onsubmit="return validateForm()" method="POST" action="">
+    <form method="POST" action="">
       {% csrf_token %}
 
       <div class="form-group">
@@ -190,7 +190,7 @@
 
     <div class="already-account">
       Already have an account?
-      <a href="" aria-label="Go to login page">Login</a>
+      <a href="{% url 'login' %}" aria-label="Go to login page">Login</a>
     </div>
   </div>
 
