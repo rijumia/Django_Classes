@@ -33,12 +33,17 @@ print("Sum Of List Number :", total)
 print("**********Count How Many Odd Or Even Numbers From 1 To 20**********")
 even = 0
 odd = 0
+even_sum =0
+odd_sum =0
 for n in range(1, 21):
     if n%2==0:
         even += 1
+        even_sum += n
     else:
         odd += 1
+        odd_sum += n
 print("Total Odd Num:",odd,"Total Even Num: ",even)
+print("Sum Odd Num:",odd_sum,"Sum Even Num: ",even_sum)
 
 
 print("**********Find Largest Number in a list**********")
