@@ -3,16 +3,16 @@ numbers = [12, 85, 98, 47, 69, -9]
 print("************Print Odd Or Even Number**********")
 for num in numbers:
     if num%2==0:
-        print("It's Even Number")
+        print(num, " is Even Number")
     else:
-        print("It's Odd Number")
+        print(num, " is Odd Number")
 
 print("*************Print Possitive Or Negative Number****")
 for num in numbers:
     if num>=0:
-        print("It's Possitive Number")
+        print(num, " is Possitive Number")
     else:
-        print("It's Negative Number")
+        print(num, " is Negative Number")
 
 print("************Print Odd Or Even Number from 1 to 20**********")
 for item in range(1,21):
@@ -30,7 +30,7 @@ for num in numbers:
 print("Sum Of List Number :", total)
 
 
-print("Count How Many Odd Or Even Numbers From 1 To 20")
+print("**********Count How Many Odd Or Even Numbers From 1 To 20**********")
 even = 0
 odd = 0
 for n in range(1, 21):
@@ -41,7 +41,7 @@ for n in range(1, 21):
 print("Total Odd Num:",odd,"Total Even Num: ",even)
 
 
-print("Find Largest Number in a list")
+print("**********Find Largest Number in a list**********")
 largest = 0
 for num in numbers:
     if num > largest:
@@ -49,7 +49,7 @@ for num in numbers:
 print("Largest Number is: ", largest)
 
 
-print("Print the Multiplication Table of Number 5")
+print("**********Print the Multiplication Table of Number 5**********")
 for m in range(1,11):
     print("5*",m,"=",m*5)
 
