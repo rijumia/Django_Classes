@@ -167,6 +167,7 @@
       <th>Category</th>
       <th>Publish Date</th>
       <th>Description</th>
+      <th>Cover Img</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -178,6 +179,10 @@
       <td>{{book.BookCategory}}</td>
       <td>{{book.BookPublishDate}}</td>
       <td class="description">{{book.BookDescription}}</td>
+      <td class="cover">
+        <!-- {{book.BookCoverPhoto}} -->
+        <img src="{{book.BookCoverPhoto}}" height="50px" alt="">
+      </td>
       <td class="actions">
        <a href="" class="btn btn-view" aria-label="View book details">View</a>
        <a href="{% url 'bookUpdate' book.id %}" class="btn btn-edit" aria-label="Edit book">Edit</a>
