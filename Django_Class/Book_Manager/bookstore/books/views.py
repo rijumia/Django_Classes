@@ -77,4 +77,8 @@ def bookDelete(request, id):
      book.delete()
      return redirect('bookList')
 
+def viewBook(request, id):
+    books = booksModel.objects.get(id=id)
+    return render(request, 'view_book.html', {'books':books})
+
     

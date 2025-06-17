@@ -11,4 +11,5 @@ urlpatterns = [
     path('book_add', bookForm, name='bookAdd'),
     path('book_update/<str:id>/', bookUpdate, name='bookUpdate'),
     path('bookList/<str:id>/', bookDelete, name='bookDelete'),
+    path('view/<str:id>/', viewBook, name='viewBook')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
