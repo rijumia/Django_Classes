@@ -63,7 +63,7 @@ def updateDetails(req, id):
         resume.Hobbies = req.POST.get('hobbies')
         resume.Achievements = req.POST.get('achievements')
         if req.FILES.get('profilePicture'):
-            resume.req.FILES.get('profilePicture')
+            resume.Profile_Picture=req.FILES.get('profilePicture')
 
 
         resume.save()
