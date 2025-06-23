@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -18,6 +18,8 @@ def loginPage(request):
         if user:
             login(request, user)
             return redirect('homePage')
+        else:
+            return HttpResponse('Somthing Is Wrong!!')
 
     return render(request, 'login.html')
 def signupPage(request):
@@ -30,8 +32,8 @@ def signupPage(request):
             user = User.objects.create_user(username, email, password)
             user.save()
             return redirect('loginPage')
-        # else:
-        #     return HttpResponse('password and confirm_password not same!!!')
+        else:
+            return HttpResponse('password and confirm_password not same!!!')
     return render(request, 'register.html')
 @login_required
 def logoutPage(request):
