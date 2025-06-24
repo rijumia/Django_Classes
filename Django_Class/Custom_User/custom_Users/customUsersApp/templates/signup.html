@@ -72,13 +72,14 @@
 <body>
   <div class="signup-box">
     <h2>Create Account</h2>
-    <form>
-      <input type="text" placeholder="Username" required />
-      <input type="email" placeholder="Email" required />
-      <input type="password" placeholder="Password" required />
-      <input type="password" placeholder="Confirm Password" required />
-      <select required>
-        <option value="">Select Role</option>
+    <form method="POST" action="{% url 'signupPage' %}">
+      {% csrf_token %}
+      <input type="text" name="Username" placeholder="Username" required />
+      <input type="email" name="Email" placeholder="Email" required />
+      <input type="password" name="Password" placeholder="Password" required />
+      <input type="password" name="Confirm_Password" placeholder="Confirm Password" required />
+      <select name="role" required>
+        <option value="" disabled>Select Role</option>
         <option value="Jobseeker">Jobseeker</option>
         <option value="Recruiter">Recruiter</option>
       </select>
