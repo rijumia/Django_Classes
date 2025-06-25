@@ -49,10 +49,11 @@
         <li class="nav-item"><a class="nav-link" href="">Post Job</a></li>
         {% if user.is_authenticated %}
           <li class="nav-item"><a class="nav-link" href="">Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="">Logout</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'listPage' %}">List</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'logoutPage' %}">Logout</a></li>
         {% else %}
-          <li class="nav-item"><a class="nav-link" href="">Login</a></li>
-          <li class="nav-item"><a class="nav-link" href="">Signup</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'loginPage' %}">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'signupPage' %}">Signup</a></li>
         {% endif %}
       </ul>
     </div>
@@ -61,9 +62,9 @@
 
 <!-- Main Content -->
 <main class="container my-4">
-    {% block content %}
+    {% block body %}
     <!-- Page-specific content goes here -->
-    {% endblock %}
+    {% endblock body %}
 </main>
 
 <!-- Footer -->
