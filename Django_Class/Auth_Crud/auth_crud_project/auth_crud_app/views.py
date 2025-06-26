@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect, HttpResponse
 from auth_crud_app.models import CustomUserModel, ProductModel
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def homePage(request):
 
 
@@ -28,6 +30,7 @@ def signUpPage(request):
             profileImage = profileImage,
           )
         return redirect('loginPage')
+        
     return render(request, 'signup.html')
 
 
@@ -45,10 +48,12 @@ def loginPage(request):
     
     return render(request, 'login.html')
 
+@login_required
 def logOutPage(request):
     logout(request)
     return redirect('loginPage')
 
+@login_required
 def addProduct(request):
     if request.user.user_type != 'owner':
         return HttpResponse('Permission Denied')
@@ -69,6 +74,7 @@ def addProduct(request):
         return redirect('listProduct')
     return render(request, 'addProduct.html')
 
+@login_required
 def updateProduct(request, id):
     if request.user.user_type != 'owner':
         return redirect('listProduct')
@@ -84,15 +90,17 @@ def updateProduct(request, id):
     
     return render(request, 'updateProduct.html', {'product': product})
 
-
+@login_required
 def listProduct(request):
     products = ProductModel.objects.all()
     return render(request, 'listProduct.html',{'products':products})
 
+@login_required
 def viewProduct(request, id):
     product = ProductModel.objects.get(id=id)
     return render(request, 'viewProduct.html',{'product':product})
 
+@login_required
 def deletePage(request,id):
     if request.user.user_type != 'owner':
         return redirect('homePage')

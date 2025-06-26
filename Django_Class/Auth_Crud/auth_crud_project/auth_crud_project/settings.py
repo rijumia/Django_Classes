@@ -110,3 +110,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'auth_crud_app.CustomUserModel'
+
+LOGIN_URL = 'loginPage'
