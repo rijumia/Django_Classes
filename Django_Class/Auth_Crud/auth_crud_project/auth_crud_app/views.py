@@ -77,7 +77,8 @@ def addProduct(request):
 @login_required
 def updateProduct(request, id):
     if request.user.user_type != 'owner':
-        return redirect('listProduct')
+        return HttpResponse('Permission Denied')
+    
     product = ProductModel.objects.get(id=id)
     if request.method == 'POST':
         product.productName = request.POST.get('pname')
@@ -103,8 +104,9 @@ def viewProduct(request, id):
 @login_required
 def deletePage(request,id):
     if request.user.user_type != 'owner':
-        return redirect('homePage')
+        return HttpResponse('Permission Denied')
     product = ProductModel.objects.get(id=id)
+    product.delete()
     return render(request, 'listProduct.html',{'product':product})
 
 
