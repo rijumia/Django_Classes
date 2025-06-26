@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, HttpResponse
 from auth_crud_app.models import CustomUserModel, ProductModel
 from django.contrib.auth import authenticate,login,logout
 
@@ -50,6 +50,9 @@ def logOutPage(request):
     return redirect('loginPage')
 
 def addProduct(request):
+    if request.user.user_type != 'owner':
+        return HttpResponse('Permission Denied')
+    
     if request.method == 'POST':
         pname = request.POST.get('pname')
         pdescription = request.POST.get('pdescription')
@@ -67,6 +70,8 @@ def addProduct(request):
     return render(request, 'addProduct.html')
 
 def updateProduct(request, id):
+    if request.user.user_type != 'owner':
+        return redirect('listProduct')
     product = ProductModel.objects.get(id=id)
     if request.method == 'POST':
         product.productName = request.POST.get('pname')
@@ -89,6 +94,8 @@ def viewProduct(request, id):
     return render(request, 'viewProduct.html',{'product':product})
 
 def deletePage(request,id):
+    if request.user.user_type != 'owner':
+        return redirect('homePage')
     product = ProductModel.objects.get(id=id)
     return render(request, 'listProduct.html',{'product':product})
 
