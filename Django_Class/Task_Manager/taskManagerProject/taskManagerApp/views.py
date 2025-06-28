@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from taskManagerApp.models import CustomUserModel, TaskModel
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.utils.timezone import now
+
 
 @login_required
 def homePage(request):
@@ -85,7 +87,9 @@ def updateTask(request, id):
 def listTask(request):
     # tasks = TaskModel.objects.all()
     tasks = TaskModel.objects.filter(user=request.user)
-    
+    for task in tasks:
+        delta = task.TaskDueDate - now().date()
+        task.days_remaining = delta.days
     return render(request, 'task_list.html', {'tasks': tasks})
 
 

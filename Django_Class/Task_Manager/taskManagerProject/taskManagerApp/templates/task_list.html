@@ -126,6 +126,9 @@
               </p>
               <p><strong>Due Date:</strong> {{ task.TaskDueDate }}</p>
               <p><strong>Due In:</strong> {{ task.TaskDueDate|timeuntil }}</p>
+              <p><strong>Due In:</strong> 
+<p><strong>Due In:</strong> {{ task.days_remaining }} day{{ task.days_remaining|pluralize }}</p>
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
