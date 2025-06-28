@@ -3,6 +3,7 @@ from taskManagerApp.models import CustomUserModel, TaskModel
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+@login_required
 def homePage(request):
     return render(request,'home.html')
 
@@ -39,10 +40,12 @@ def signupPage(request):
             return redirect('loginPage')
     return render(request,'register.html')
 
+@login_required
 def logoutPage(request):
     logout(request)
     return redirect('loginPage')
 
+@login_required
 def addTask(request):
     if request.method == 'POST':
         todoTitle = request.POST.get('todoTitle')
@@ -62,6 +65,8 @@ def addTask(request):
         return redirect('listTask')
     return render(request, 'add_task.html')
 
+
+@login_required
 def updateTask(request, id):
     
     taskupdate = TaskModel.objects.get(id=id)
@@ -75,11 +80,16 @@ def updateTask(request, id):
         return redirect('listTask')
     return render(request, 'update_task.html', {'taskupdate': taskupdate})
 
+
+@login_required
 def listTask(request):
     # tasks = TaskModel.objects.all()
     tasks = TaskModel.objects.filter(user=request.user)
+    
     return render(request, 'task_list.html', {'tasks': tasks})
 
+
+@login_required
 def DeleteTask(request, id):
     task = TaskModel.objects.get(id=id)
     task.delete()
