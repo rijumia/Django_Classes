@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from taskManagerApp.models import CustomUserModel, TaskModel
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 def homePage(request):
     return render(request,'home.html')
@@ -51,6 +52,7 @@ def addTask(request):
         todoDueDate = request.POST.get('todoDueDate')
 
         task = TaskModel.objects.create(
+            user=request.user,
             TaskTitle = todoTitle,
             TaskDescription = todoDescription,
             TaskPriority = todoPriority,
@@ -74,7 +76,8 @@ def updateTask(request, id):
     return render(request, 'update_task.html', {'taskupdate': taskupdate})
 
 def listTask(request):
-    tasks = TaskModel.objects.all()
+    # tasks = TaskModel.objects.all()
+    tasks = TaskModel.objects.filter(user=request.user)
     return render(request, 'task_list.html', {'tasks': tasks})
 
 def DeleteTask(request, id):
