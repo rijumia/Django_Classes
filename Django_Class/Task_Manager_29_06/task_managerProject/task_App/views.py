@@ -64,10 +64,12 @@ def addTask(request):
         return redirect('listTask')
     return render(request, 'addTask.html')
 
+@login_required
 def listTask(request):
     tasks = TaskModel.objects.filter(user=request.user)
     return render(request, 'listTask.html',{'tasks':tasks})
 
+@login_required
 def updateTask(request, id):
     task = TaskModel.objects.get(id=id)
     if request.method == "POST":
@@ -78,7 +80,8 @@ def updateTask(request, id):
         task.TaskStatus = request.POST.get('TaskStatus')
         task.save()
         return redirect('listTask')
-    
+
+@login_required    
 def deleteTask(request, id):
     task = TaskModel.objects.get(id=id)
     task.delete()
