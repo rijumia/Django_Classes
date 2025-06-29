@@ -11,5 +11,5 @@ class TaskModel(models.Model):
     TaskDescription = models.TextField(null=True)
     TaskDueDate = models.DateField(null=True)
     TaskPriority = models.CharField(choices=[('low','Low'),('mediumn','Medium'),('high','High')],max_length=20, null=True)
-    TaskStatus = models.CharField(choices=[('pending','Pending'),('in_progress','In_Progress'),('complated','Complated')],max_length=20, null=True)
+    TaskStatus = models.CharField(choices=[('pending','Pending'),('in_progress','In_Progress'),('completed','Completed')],max_length=20, null=True)
     TaskCreateAt = models.DateTimeField(auto_now_add=True, null=True)
