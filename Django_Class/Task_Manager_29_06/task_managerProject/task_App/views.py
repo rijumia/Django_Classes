@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from task_App.models import CustomUserModel, TaskModel
 
 def loginPage(request):
@@ -34,11 +35,52 @@ def signupPage(request):
             return redirect('loginPage')
     return render(request, 'register.html')
 
+@login_required
 def logoutPage(request):
     logout(request)
     return redirect('loginPage')
 
+@login_required
 def homePage(request):
     return render(request, 'home.html')
 
+@login_required
+def addTask(request):
+    if request.method == 'POST':
+        TaskTitle = request.POST.get('TaskTitle')
+        TaskDescription = request.POST.get('TaskDescription')
+        TaskDueDate = request.POST.get('TaskDueDate')
+        TaskPriority = request.POST.get('TaskPriority')
+        TaskStatus = request.POST.get('TaskStatus')
+        
+        task = TaskModel.objects.create(
+            user = request.user,
+            TaskTitle = TaskTitle,
+            TaskDescription = TaskDescription,
+            TaskDueDate = TaskDueDate,
+            TaskPriority = TaskPriority,
+            TaskStatus = TaskStatus,
+        )
+        return redirect('listTask')
+    return render(request, 'addTask.html')
+
+def listTask(request):
+    tasks = TaskModel.objects.filter(user=request.user)
+    return render(request, 'listTask.html',{'tasks':tasks})
+
+def updateTask(request, id):
+    task = TaskModel.objects.get(id=id)
+    if request.method == "POST":
+        task.TaskTitle = request.POST.get('TaskTitle')
+        task.TaskDescription = request.POST.get('TaskDescription')
+        task.TaskDueDate = request.POST.get('TaskDueDate')
+        task.TaskPriority = request.POST.get('TaskPriority')
+        task.TaskStatus = request.POST.get('TaskStatus')
+        task.save()
+        return redirect('listTask')
+    
+def deleteTask(request, id):
+    task = TaskModel.objects.get(id=id)
+    task.delete()
+    return redirect('listTask')
 
