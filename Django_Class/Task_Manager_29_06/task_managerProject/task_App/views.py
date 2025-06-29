@@ -8,9 +8,9 @@ def loginPage(request):
         password = request.POST.get('password')
         
         user = authenticate(username=username,password=password)
-        if user:
+        if user is not None:
             login(request, user)
-            return HttpResponse('login successfully')
+            return redirect('homePage')
     return render(request, 'login.html')
 
 def signupPage(request):
@@ -33,5 +33,12 @@ def signupPage(request):
             )
             return redirect('loginPage')
     return render(request, 'register.html')
+
+def logoutPage(request):
+    logout(request)
+    return redirect('loginPage')
+
+def homePage(request):
+    return render(request, 'home.html')
 
 
