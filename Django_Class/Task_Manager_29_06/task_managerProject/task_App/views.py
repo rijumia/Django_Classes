@@ -47,7 +47,6 @@ def homePage(request):
         TaskStatus="pending"
     )
     return render(request, 'home.html',{'tasks':tasks})
-@login_required
 
 
 @login_required
