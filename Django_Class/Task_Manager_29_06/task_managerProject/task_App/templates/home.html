@@ -1,5 +1,5 @@
-{% comment %} {% extends 'master.html' %}
 
+{% extends 'master.html' %}
 {% block body %}
 <style>
   body {
@@ -7,72 +7,95 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
 
-  .profile-card {
-    max-width: 300px;
-    margin: 3em auto;
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .task-card {
     background: white;
     border-radius: 12px;
-    padding: 2em;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    text-align: center;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .profile-card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #3498db;
-    margin-bottom: 1em;
+  .task-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   }
 
-  .profile-card h2 {
-    margin: 0.5em 0;
-    font-weight: 700;
+  .task-card h5 {
+    margin: 0 0 0.8rem 0;
     color: #2c3e50;
   }
 
-  .profile-card p {
-    margin: 0.3em 0;
+  .task-card p {
+    font-size: 0.95rem;
     color: #555;
-    font-size: 0.95em;
+    margin-bottom: 1rem;
   }
 
-  .profile-label {
-    font-weight: 600;
-    color: #333;
+  .badges {
+    margin-bottom: 1rem;
   }
 
-  .edit-btn {
-    display: inline-block;
-    margin-top: 1em;
-    padding: 0.6em 1.2em;
-    background-color: #3498db;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
+  .badges span {
+    margin-right: 0.5rem;
   }
 
-  .edit-btn:hover {
-    background-color: #2980b9;
+  .card-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .card-actions a {
+    flex: 1;
   }
 </style>
 
-<div class="profile-card">
-  {% if request.user.profile_picture %}
-    <img src="/{{ request.user.profile_picture }}" alt="Profile Image">
+<div class="container">
+  <h2 class="text-center mb-4 fw-bold text-primary">Welcome, {{ user.fullname }}</h2>
+  {% if tasks %}
+  <div class="card-container">
+    {% for task in tasks %}
+    <div class="task-card">
+      <div>
+        <h5>{{ task.TaskTitle }}</h5>
+        <p>{{ task.TaskDescription|truncatechars:80 }}</p>
+        <div class="badges">
+          {% if task.TaskPriority == "high" %}
+            <span class="badge bg-danger">High</span>
+          {% elif task.TaskPriority == "medium" %}
+            <span class="badge bg-warning text-dark">Medium</span>
+          {% else %}
+            <span class="badge bg-success">Low</span>
+          {% endif %}
+          {% if task.TaskStatus == "pending" %}
+            <span class="badge bg-secondary">Pending</span>
+          {% elif task.TaskStatus == "inProgress" %}
+            <span class="badge bg-info text-dark">In Progress</span>
+          {% else %}
+            <span class="badge bg-success">Completed</span>
+          {% endif %}
+        </div>
+        <p><strong>Due:</strong> {{ task.TaskDueDate|date:"F j, Y" }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
   {% else %}
-    <img src="https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=" alt="Default Photo">
+    <p class="text-center text-muted">No tasks available.</p>
   {% endif %}
-
-  <h2>{{ request.user.first_name }}</h2>
-  <p><span class="profile-label">Username:</span> {{ request.user.username }}</p>
-  <p><span class="profile-label">Email:</span> {{ request.user.email }}</p>
-
 </div>
-{% endblock body %} {% endcomment %}
+{% endblock %}
 
 
 
