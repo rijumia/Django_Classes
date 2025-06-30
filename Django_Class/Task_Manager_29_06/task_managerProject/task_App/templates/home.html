@@ -73,3 +73,103 @@
 
 </div>
 {% endblock body %} {% endcomment %}
+
+
+{% extends 'master.html' %}
+{% block body %}
+<style>
+  body {
+    background: #f4f6f8;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .task-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .task-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+
+  .task-card h5 {
+    margin: 0 0 0.8rem 0;
+    color: #2c3e50;
+  }
+
+  .task-card p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+
+  .badges {
+    margin-bottom: 1rem;
+  }
+
+  .badges span {
+    margin-right: 0.5rem;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .card-actions a {
+    flex: 1;
+  }
+</style>
+
+<div class="container">
+  <h2 class="text-center mb-4 fw-bold text-primary">Welcome, {{ user.fullname }}</h2>
+  {% if tasks %}
+  <div class="card-container">
+    {% for task in tasks %}
+    <div class="task-card">
+      <div>
+        <h5>{{ task.TaskTitle }}</h5>
+        <p>{{ task.TaskDescription|truncatechars:80 }}</p>
+        <div class="badges">
+          {% if task.TaskPriority == "high" %}
+            <span class="badge bg-danger">High</span>
+          {% elif task.TaskPriority == "medium" %}
+            <span class="badge bg-warning text-dark">Medium</span>
+          {% else %}
+            <span class="badge bg-success">Low</span>
+          {% endif %}
+          {% if task.TaskStatus == "pending" %}
+            <span class="badge bg-secondary">Pending</span>
+          {% elif task.TaskStatus == "inProgress" %}
+            <span class="badge bg-info text-dark">In Progress</span>
+          {% else %}
+            <span class="badge bg-success">Completed</span>
+          {% endif %}
+        </div>
+        <p><strong>Due:</strong> {{ task.TaskDueDate|date:"F j, Y" }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <p class="text-center text-muted">No tasks available.</p>
+  {% endif %}
+</div>
+{% endblock %}
+
