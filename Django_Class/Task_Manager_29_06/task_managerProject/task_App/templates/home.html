@@ -69,22 +69,12 @@
       <div>
         <h5>{{ task.TaskTitle }}</h5>
         <p>{{ task.TaskDescription|truncatechars:80 }}</p>
-        <div class="badges">
-          {% if task.TaskPriority == "high" %}
-            <span class="badge bg-danger">High</span>
-          {% elif task.TaskPriority == "medium" %}
-            <span class="badge bg-warning text-dark">Medium</span>
-          {% else %}
-            <span class="badge bg-success">Low</span>
-          {% endif %}
-          {% if task.TaskStatus == "pending" %}
-            <span class="badge bg-secondary">Pending</span>
-          {% elif task.TaskStatus == "inProgress" %}
-            <span class="badge bg-info text-dark">In Progress</span>
-          {% else %}
-            <span class="badge bg-success">Completed</span>
-          {% endif %}
-        </div>
+        {% for task in tasks %}
+  {% if task.TaskStatus == "pending" %}
+    <!-- Your card markup here -->
+  {% endif %}
+{% endfor %}
+
         <p><strong>Due:</strong> {{ task.TaskDueDate|date:"F j, Y" }}</p>
       </div>
     </div>
