@@ -42,14 +42,12 @@ def logoutPage(request):
 
 @login_required
 def homePage(request):
-    return render(request, 'home.html')
-@login_required
-def home(request):
     tasks = TaskModel.objects.filter(
         user=request.user,
         TaskStatus="pending"
     )
-    return render(request, "home.html", {"tasks": tasks})
+    return render(request, 'home.html')
+@login_required
 
 
 @login_required
