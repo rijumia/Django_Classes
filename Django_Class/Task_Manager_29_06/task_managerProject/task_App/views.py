@@ -46,7 +46,7 @@ def homePage(request):
         user=request.user,
         TaskStatus="pending"
     )
-    return render(request, 'home.html',{'task'})
+    return render(request, 'home.html',{'tasks':tasks})
 @login_required
 
 
