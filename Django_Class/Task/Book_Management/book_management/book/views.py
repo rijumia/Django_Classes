@@ -10,7 +10,7 @@ def registerPage(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        confirmPassword = request.POST.get('confirmPassword')
+        confirmPassword = request.POST.get('confirm_password')
 
         if password == confirmPassword:
             user = User.objects.create_user(username, email, password)
