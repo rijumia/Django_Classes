@@ -14,4 +14,5 @@ urlpatterns = [
     path('listTask/',listTask, name='listTask'),
     path('updateTask/<str:id>/', updateTask, name='updateTask'),
     path('deleteTask/<str:id>/', deleteTask, name='DeleteTask'),
+    path('changePasswordPage/', changePasswordPage, name='changePasswordPage'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

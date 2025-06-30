@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from task_App.models import CustomUserModel, TaskModel
+from django.contrib.auth.hashers import check_password
+
 
 def loginPage(request):
     if request.method == 'POST':
@@ -42,8 +44,12 @@ def logoutPage(request):
 
 @login_required
 def homePage(request):
-    tasks = TaskModel.objects.filter(user=request.user, TaskStatus='in_progress')
-    return render(request, 'home.html',{'tasks':tasks})
+    tasks = TaskModel.objects.filter(user=request.user)
+    in_progress = TaskModel.objects.filter(user=request.user, TaskStatus='in_progress')
+    pending = TaskModel.objects.filter(user=request.user, TaskStatus='pending')
+    completed = TaskModel.objects.filter(user=request.user, TaskStatus='completed')
+    
+    return render(request, 'home.html',{'tasks':tasks,'in_progress':in_progress,'pending':pending,'completed':completed})
 
 
 @login_required
@@ -88,4 +94,21 @@ def deleteTask(request, id):
     task = TaskModel.objects.get(id=id)
     task.delete()
     return redirect('listTask')
+
+def changePasswordPage(request):
+    
+    current_user = request.user
+    
+    if request.method == 'POST':
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        if check_password(old_password, current_user.password):
+            if new_password == confirm_password:
+                current_user.set_password(new_password)
+                current_user.save()
+                update_session_auth_hash(request, current_user)
+                return redirect('homePage')
+    return render(request, 'change_password.html')
 
