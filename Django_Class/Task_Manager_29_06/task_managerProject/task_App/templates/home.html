@@ -70,10 +70,7 @@
         <h5>{{ task.TaskTitle }}</h5>
         <p>{{ task.TaskDescription|truncatechars:80 }}</p>
         {% for task in tasks %}
-  {% if task.TaskStatus == "pending" %}
-    <!-- Your card markup here -->
-  {% endif %}
-{% endfor %}
+
 
         <p><strong>Due:</strong> {{ task.TaskDueDate|date:"F j, Y" }}</p>
       </div>
