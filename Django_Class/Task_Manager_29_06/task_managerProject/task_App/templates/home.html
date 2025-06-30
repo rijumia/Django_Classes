@@ -65,17 +65,11 @@
   {% if tasks %}
   <div class="card-container">
     {% for task in tasks %}
-    <div class="task-card">
-      <div>
-        <h5>{{ task.TaskTitle }}</h5>
-        <p>{{ task.TaskDescription|truncatechars:80 }}</p>
-        {% for task in tasks %}
+  {% if task.TaskStatus == "pending" %}
+    <!-- Your card markup here -->
+  {% endif %}
+{% endfor %}
 
-
-        <p><strong>Due:</strong> {{ task.TaskDueDate|date:"F j, Y" }}</p>
-      </div>
-    </div>
-    {% endfor %}
   </div>
   {% else %}
     <p class="text-center text-muted">No tasks available.</p>
