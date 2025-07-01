@@ -15,4 +15,8 @@ urlpatterns = [
     path('updateTask/<str:id>/', updateTask, name='updateTask'),
     path('deleteTask/<str:id>/', deleteTask, name='DeleteTask'),
     path('changePasswordPage/', changePasswordPage, name='changePasswordPage'),
+    
+    path('taskDone/<str:id>/', taskDone, name='taskDone'),
+    path('changeStatus/<str:id>/', changeStatus, name='changeStatus'),
+    path('changePriority/<str:id>/', changePriority, name='changePriority'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

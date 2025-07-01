@@ -112,3 +112,33 @@ def changePasswordPage(request):
                 return redirect('homePage')
     return render(request, 'change_password.html')
 
+def taskDone(request, id):
+    task_done = TaskModel.objects.get(id=id)
+    task_done.TaskStatus = 'completed'  
+    task_done.save()
+    return redirect('listTask')
+
+def changeStatus(request, id):
+    status = TaskModel.objects.get(id=id)
+    
+    if status.TaskStatus == 'pending':
+        status.TaskStatus = 'in_progress'
+    elif status.TaskStatus == 'in_progress':
+        status.TaskStatus = 'completed'
+        
+    status.save()
+    return redirect('listTask')
+
+def changePriority(request, id):
+    priority = TaskModel.objects.get(id=id)
+    
+    if priority.TaskPriority == 'low':
+        priority.TaskPriority = 'medium'
+    elif priority.TaskPriority == 'medium':
+        priority.TaskPriority = 'high'
+    priority.save()
+    return redirect('listTask')
+
+    
+
+

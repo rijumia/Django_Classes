@@ -35,7 +35,7 @@
               {{ task.TaskPriority|capfirst }} Priority
             </span>
             <span class="badge bg-secondary">
-              {{ task.TaskStatus|capfirst }}
+              {{ task.get_TaskStatus_display}}
             </span>
             <span class="badge bg-light text-dark border">Due: {{ task.TaskDueDate }}</span>
           </div>
@@ -53,6 +53,21 @@
           <a href="{% url 'DeleteTask' task.id %}" class="btn btn-sm btn-outline-danger">
             <i class="bi bi-trash"></i> Delete
           </a>
+          {% if task.TaskStatus != 'completed' %}
+          <a href="{% url 'taskDone' task.id %}" class="btn btn-sm btn-outline-dark">
+            <i class="bi bi-check-circle-fill"></i> Done
+          </a>
+
+          <a href="{% url 'changeStatus' task.id %}" class="btn btn-sm btn-outline-success">
+            <i class="bi bi-airplane-fill"></i> Change Status
+          </a>
+          {% endif %}
+          
+          {% if task.TaskPriority != 'high' %}
+          <a href="{% url 'changePriority' task.id %}" class="btn btn-sm btn-success">
+            <i class="bi bi-caret-down-fill"></i> Change Priority
+          </a>
+          {% endif %}
         </div>
       </div>
     </div>
