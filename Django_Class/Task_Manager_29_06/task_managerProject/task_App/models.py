@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 class CustomUserModel(AbstractUser):
     profile_picture = models.ImageField(upload_to='Media/profile', null=True)
     bio = models.TextField(null=True)
+
     
 class TaskModel(models.Model):
     user = models.ForeignKey(CustomUserModel, on_delete=models.CASCADE, null=True)
