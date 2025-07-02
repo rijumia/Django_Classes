@@ -50,7 +50,7 @@
         <label for="projectStatus" class="form-label">Project Status</label>
         <select class="form-select" id="projectStatus" name="projectStatus" required>
           <option value="">Select status</option>
-          <option value="NotStarted" {% if updatedata.project_status == 'NotStarted' %}selected{% endif %}>Not Started</option>
+          <option value="NotStarted" {% if updatedata.project_status == 'NotStarted' %}selected{% endif %}class="">Not Started</option>
           <option value="InProgress" {% if updatedata.project_status == 'InProgress' %}selected{% endif %}>In Progress</option>
           <option value="Completed" {% if updatedata.project_status == 'Completed' %}selected{% endif %}>Completed</option>
         </select>

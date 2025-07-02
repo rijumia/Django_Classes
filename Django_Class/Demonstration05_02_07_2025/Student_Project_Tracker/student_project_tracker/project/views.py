@@ -43,7 +43,11 @@ def logoutPage(request):
     return redirect('loginPage')
 
 def homePage(request):
-    projectData = ProjectModel.objects.filter(user = request.user)
+    user = request.user
+    if user.is_staff or user.is_superuser:
+        projectData = ProjectModel.objects.all()
+    else:
+        projectData = ProjectModel.objects.filter(user = request.user)
     return render(request, 'home.html',{'projects':projectData})
 
 def addPage(request):
@@ -83,6 +87,10 @@ def updatePage(request,id):
 def listPage(request):
     projectData = ProjectModel.objects.filter(user = request.user)
     return render(request, 'project_list.html',{'projectData':projectData})
+
+def viewPage(request, id):
+    project = ProjectModel.objects.get(id=id)
+    return render(request, 'project_view.html',{'project':project})
 
 def deletePage(request, id):
     projectData = ProjectModel.objects.filter(id=id)

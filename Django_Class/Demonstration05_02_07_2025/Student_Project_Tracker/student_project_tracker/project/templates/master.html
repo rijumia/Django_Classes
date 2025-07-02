@@ -52,7 +52,9 @@
     <div class="brand">Student Tracker</div>
     <ul class="nav-links">
       <li><a href="{% url 'homePage' %}">Home</a></li>
+      {% if request.user == user.is_superuser %}
       <li><a href="{% url 'addPage' %}">Add Project</a></li>
+      {% endif %}
       <li><a href="{% url 'listPage' %}">Project List</a></li>
       <li><a href="{% url 'logoutPage' %}">Logout</a></li>
     </ul>

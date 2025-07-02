@@ -29,6 +29,7 @@ urlpatterns = [
     path('updatePage/<str:id>/', updatePage, name='updatePage'),
     path('listPage/', listPage, name='listPage'),
     path('deletePage/<str:id>/', deletePage, name='deletePage'),
+    path('viewPage/<str:id>/', viewPage, name='viewPage'),
     
     path('changeStatus/<str:id>/',changeStatus, name='changeStatus'),
 ]
