@@ -101,7 +101,13 @@ def addStudent(request):
     return render(request, 'addStudent.html')
 
 def studentList(request):
-    teacher = TeacherModel.objects.get(user=request.user)
-    studentList = StudentModel.objects.filter(teacher=teacher)
+    if request.user.username == 'admin':
+        studentList = StudentModel.objects.all()
+    else:
+        try:
+            teacher = TeacherModel.objects.get(user=request.user)
+            studentList = StudentModel.objects.filter(teacher=teacher)
+        except TeacherModel.DoesNotExist:
+            studentList = StudentModel.objects.none()
     return render(request, 'studentList.html', {'students': studentList})
 
